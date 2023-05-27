@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoRa分层权重</title>
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+  <style>
+    .space {
+      margin: 10%;
+
+    }
+
+    body {
+      background: url(" jrbk.png") no-repeat fixed;
+      background-size: cover;
+      color: #fff;
+
+    }
+
+    img {
+      width: 80%;
+    }
+
+    body {
+      text-align: center;
+
+      margin: center;
+      /* flex布局 */
+      /* display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-around; */
+    }
+
+    input {
+      width: 25px;
+      text-align: center;
+    }
+
+    /* 结果 */
+    .result {
+      width: 400px;
+    }
+
+    .box1 {
+      float: left;
+      width: 50%;
+    }
+
+    .box2 {
+      float: right;
+      width: 50%;
+    }
+
+    /* 提交 */
+    .TJ {
+      text-align: center;
+    }
+
+    .box1>div {
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    .box2>div {
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="space"></div>
+  <div class="box1">
+    <div>开关：</div>
+    <div>服装细节(扣子等)：</div>
+    <div>背景：</div>
+    <div>躯干服装，动作：</div>
+    <div>躯干动作：</div>
+    <div>面部，躯干动作，特征：</div>
+    <div>面部，躯干（服装）特征，佩戴的饰品等：</div>
+    <div>背景：</div>
+    <div>上色风格：</div>
+  </div>
+  <div class="box2">
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+    <div>
+      <input type="text" name="firstname" value="1" class="num" />
+      <input type="text" name="firstname" value="1" class="num" />
+    </div>
+  </div>
+
+  <div class="TJ"><button>提交</button></div>
+  <div class="backguround"><button>背景预设</button></div>
+  <div class="backguround2"><button>人物预设</button></div>
+  <div class="backguround3"><button>重置</button></div>
+
+  <div>
+    导出：
+    <input class="result" type="text" name="firstname" value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+  </div>
+
+  <div align><img src="LoRa权重.png" alt="" /></div>
+</body>
+<script>
+  let nums = document.querySelectorAll(".num");
+  console.log(nums);
+  document.querySelector(".TJ").addEventListener("click", (e) => {
+    let str = "";
+    for (i = 0; i < nums.length; i++) {
+      i == nums.length - 1
+        ? (str += nums[i].value)
+        : (str += nums[i].value + ",");
+    }
+    document.querySelector(".result").value = str;
+
+    let tempElm = document.createElement("textarea");
+    tempElm.value = str;
+
+    // 将临时元素添加到页面中
+    document.body.appendChild(tempElm);
+
+    // 选中临时元素中的文本
+    tempElm.select();
+
+    // 执行复制操作
+    document.execCommand("copy");
+
+    // 移除临时元素
+    document.body.removeChild(tempElm);
+  });
+  // 背景预设
+  let background = "1,0,0,0,1,1,0,0,0,0,0,1,1,1,1,1,1";
+  setPreinstall("backguround", background);
+  // 人物预设
+  let background2 = "1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0";
+  setPreinstall("backguround2", background2);
+  // 重置
+  let background3 = "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
+  setPreinstall("backguround3", background3);
+
+
+
+  function setPreinstall(butClass, preinstall) {
+    document.querySelector(`.${butClass}`).addEventListener("click", () => {
+      let bgs = preinstall.split(",");
+      for (i = 0; i < nums.length; i++) {
+        nums[i].value = bgs[i];
+      }
+      document.querySelector(".result").value = preinstall;
+    });
+  }
+</script>
+
+</html>
